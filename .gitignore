@@ -1,10 +1,10 @@
 # Binary
-text2img
+/text2img
 output/
 
 # Build artifacts
-dist/text2img-*
 text2img-release.zip
+skills/text2img/text2img-*
 
 # OS files
 .DS_Store
