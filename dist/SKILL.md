@@ -1,55 +1,55 @@
 ---
 name: text2img
-description: Convert text content into beautifully formatted multi-page screenshot images, with smart pagination and even text distribution. Use this skill when users want to turn text into images for social media (Xiaohongshu/小红书, WeChat Moments, etc.), create text screenshots, or generate paginated text images. Triggers on requests like "convert this text to images", "make screenshots of this text", "generate text images for Xiaohongshu", or any request involving turning text content into picture format.
+description: 将文字内容转换为精美的分页截图图片，支持智能分页和文字均匀分布。当用户需要将文字转为图片发小红书、朋友圈等社交平台时使用。触发场景包括"把这段文字转成截图"、"生成文字图片"、"帮我做小红书图文"等涉及文字转图片的请求。
 ---
 
 # text2img
 
-CLI tool that converts text to evenly-paginated screenshot images.
+将文字转换为均匀分页截图的命令行工具。
 
-## Step 0: Ensure binary is available
+## 第0步：确认工具已安装
 
-Before first use, check if `text2img` exists:
+首次使用前检查 `text2img` 是否存在，不存在则自动安装：
 
 ```bash
 which text2img || bash ~/.claude/skills/text2img/install.sh
 ```
 
-## Workflow
+## 工作流程
 
-1. Write user's text content to `/tmp/text2img_input.txt`
-2. Run `text2img` with appropriate options
-3. Report generated image paths to user
+1. 将用户提供的文字内容写入 `/tmp/text2img_input.txt`
+2. 调用 `text2img` 生成图片
+3. 将生成的图片路径返回给用户
 
-## Command
+## 命令格式
 
 ```bash
-text2img -i <input-file> -o <output-dir> [-t template] [-size fontsize] [-lh lineheight] [-font path]
+text2img -i <输入文件> -o <输出目录> [-t 模板] [-size 字号] [-lh 行高] [-font 字体路径]
 ```
 
-## Options
+## 参数说明
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `-i` | stdin | Input text file path |
-| `-o` | `./output` | Output directory |
-| `-t` | `default` | Template: `default` (white), `dark`, `warm` |
-| `-size` | 36 | Font size in pixels |
-| `-lh` | 1.8 | Line height multiplier |
-| `-font` | system | Custom font file path |
-| `-list` | - | List available templates |
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `-i` | stdin | 输入文本文件路径 |
+| `-o` | `./output` | 输出目录 |
+| `-t` | `default` | 模板：`default`（白底）、`dark`（暗色）、`warm`（暖色） |
+| `-size` | 36 | 字体大小（像素） |
+| `-lh` | 1.8 | 行高倍数 |
+| `-font` | 系统字体 | 自定义字体文件路径 |
+| `-list` | - | 列出所有可用模板 |
 
-## Examples
+## 示例
 
 ```bash
 text2img -i /tmp/text2img_input.txt -o ./text2img_output
 text2img -i /tmp/text2img_input.txt -t dark -o ./text2img_output
-echo "Hello World" | text2img -t warm -o ./text2img_output
+echo "你好世界" | text2img -t warm -o ./text2img_output
 ```
 
-## Notes
+## 说明
 
-- Output: 1080x1440 PNG, portrait, optimized for mobile
-- Auto line-wrap, paragraph-boundary pagination, vertical text distribution
-- Page numbers auto-shown when multi-page
-- Chinese fonts auto-detected per platform (PingFang/msyh/Noto)
+- 输出：1080x1440 PNG 竖屏图片，适配手机屏幕
+- 自动换行、按段落边界智能分页、文字垂直均匀分布
+- 多页时自动显示页码
+- 自动检测系统中文字体（macOS 苹方 / Windows 微软雅黑 / Linux Noto）
