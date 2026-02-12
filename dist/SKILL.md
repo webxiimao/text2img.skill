@@ -9,24 +9,11 @@ CLI tool that converts text to evenly-paginated screenshot images.
 
 ## Step 0: Ensure binary is available
 
-Before first use, check if `text2img` exists. If not, auto-install:
+Before first use, check if `text2img` exists:
 
 ```bash
-# Check
-which text2img
-
-# If not found, clone and build (requires Go)
-git clone https://github.com/webxiimao/text2img.skill.git /tmp/text2img-build \
-  && cd /tmp/text2img-build \
-  && GOPROXY=https://goproxy.cn,direct go build -o /usr/local/bin/text2img . \
-  && rm -rf /tmp/text2img-build
-
-# If Go is also not installed, install it first:
-# macOS: brew install go
-# Linux: sudo apt install golang-go / sudo yum install golang
+which text2img || bash ~/.claude/skills/text2img/install.sh
 ```
-
-If both `go` and `brew`/`apt` are unavailable, inform the user to manually install from: https://github.com/webxiimao/text2img.skill
 
 ## Workflow
 
@@ -55,19 +42,14 @@ text2img -i <input-file> -o <output-dir> [-t template] [-size fontsize] [-lh lin
 ## Examples
 
 ```bash
-# Default white template
 text2img -i /tmp/text2img_input.txt -o ./text2img_output
-
-# Dark template
 text2img -i /tmp/text2img_input.txt -t dark -o ./text2img_output
-
-# Pipe input
 echo "Hello World" | text2img -t warm -o ./text2img_output
 ```
 
 ## Notes
 
-- Output images are 1080x1440 PNG (portrait, optimized for mobile)
-- Text is auto-wrapped, paginated at paragraph boundaries, and vertically distributed
-- Page numbers shown automatically when content spans multiple pages
-- System Chinese fonts are auto-detected (PingFang on macOS, msyh on Windows, Noto on Linux)
+- Output: 1080x1440 PNG, portrait, optimized for mobile
+- Auto line-wrap, paragraph-boundary pagination, vertical text distribution
+- Page numbers auto-shown when multi-page
+- Chinese fonts auto-detected per platform (PingFang/msyh/Noto)
