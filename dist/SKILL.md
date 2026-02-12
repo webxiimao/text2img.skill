@@ -5,7 +5,28 @@ description: Convert text content into beautifully formatted multi-page screensh
 
 # text2img
 
-CLI tool at `text2img` (installed in PATH). Converts text to evenly-paginated screenshot images.
+CLI tool that converts text to evenly-paginated screenshot images.
+
+## Step 0: Ensure binary is available
+
+Before first use, check if `text2img` exists. If not, auto-install:
+
+```bash
+# Check
+which text2img
+
+# If not found, clone and build (requires Go)
+git clone https://github.com/webxiimao/text2img.skill.git /tmp/text2img-build \
+  && cd /tmp/text2img-build \
+  && GOPROXY=https://goproxy.cn,direct go build -o /usr/local/bin/text2img . \
+  && rm -rf /tmp/text2img-build
+
+# If Go is also not installed, install it first:
+# macOS: brew install go
+# Linux: sudo apt install golang-go / sudo yum install golang
+```
+
+If both `go` and `brew`/`apt` are unavailable, inform the user to manually install from: https://github.com/webxiimao/text2img.skill
 
 ## Workflow
 
@@ -39,9 +60,6 @@ text2img -i /tmp/text2img_input.txt -o ./text2img_output
 
 # Dark template
 text2img -i /tmp/text2img_input.txt -t dark -o ./text2img_output
-
-# Custom font size
-text2img -i /tmp/text2img_input.txt -size 42 -o ./text2img_output
 
 # Pipe input
 echo "Hello World" | text2img -t warm -o ./text2img_output
